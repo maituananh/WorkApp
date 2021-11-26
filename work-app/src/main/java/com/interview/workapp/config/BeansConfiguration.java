@@ -22,6 +22,11 @@ public class BeansConfiguration {
     }
 
 
+    /**
+     * Swagger open api.
+     *
+     * @return the open api
+     */
     @Bean
     public OpenAPI swagger() {
         SwaggerConfiguration swaggerConfiguration = new SwaggerConfiguration();
