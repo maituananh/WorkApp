@@ -2,9 +2,12 @@ package com.interview.workapp.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -20,11 +23,19 @@ public class WorkEntity {
     private String workName;
 
     @Column(name = "starting_date")
-    private LocalDate startingDate;
+    private LocalDateTime startingDate;
 
     @Column(name = "ending_date")
-    private LocalDate endingDate;
+    private LocalDateTime endingDate;
 
     @Column(name = "status")
     private String status;
+
+    @CreationTimestamp
+    @Column(name = "created_date", updatable = false)
+    private LocalDateTime createdDate;
+
+    @UpdateTimestamp
+    @Column(name = "updated_date")
+    private LocalDateTime updatedDate;
 }
