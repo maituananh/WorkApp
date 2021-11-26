@@ -2,6 +2,7 @@ package com.interview.workapp.dto;
 
 import lombok.Data;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 public class WorkDto {
@@ -10,9 +11,9 @@ public class WorkDto {
 
     private String workName;
 
-    private LocalDate startingDate;
+    private LocalDateTime startingDate;
 
-    private LocalDate endingDate;
+    private LocalDateTime endingDate;
 
     private String status;
 }

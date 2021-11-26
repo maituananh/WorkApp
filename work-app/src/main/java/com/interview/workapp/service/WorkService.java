@@ -4,7 +4,7 @@ import com.interview.workapp.dto.WorkDto;
 import org.springframework.http.ResponseEntity;
 
 public interface WorkService {
-    ResponseEntity <Object> save(WorkDto dto);
+    ResponseEntity <WorkDto> save(WorkDto dto);
 
     ResponseEntity <Object> update(WorkDto t);
 
