@@ -8,6 +8,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+/**
+ * The type Work entity.
+ */
 @Data
 @NoArgsConstructor
 @Table(name = "tbl_work")

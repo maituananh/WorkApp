@@ -28,9 +28,15 @@ import java.util.stream.Collectors;
 @Transactional
 public class WorkServiceImpl implements WorkService {
 
+    /**
+     * The Model mapper.
+     */
     @Autowired
     ModelMapper modelMapper;
 
+    /**
+     * The Work repository.
+     */
     @Autowired
     WorkRepository workRepository;
 
