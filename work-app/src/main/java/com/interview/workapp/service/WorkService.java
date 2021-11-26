@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 public interface WorkService {
     ResponseEntity <WorkDto> save(WorkDto dto);
 
-    ResponseEntity <Object> update(WorkDto t);
+    ResponseEntity <WorkDto> update(WorkDto t);
 
     ResponseEntity <Object> delete(Integer id);
 

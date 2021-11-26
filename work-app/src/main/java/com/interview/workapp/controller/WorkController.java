@@ -20,7 +20,7 @@ public class WorkController {
 
     @PutMapping(path = "/update", consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<WorkDto> update(@RequestBody WorkDto t){return null;}
+    public ResponseEntity<WorkDto> update(@RequestBody WorkDto dto){return workService.update(dto);}
 
     @DeleteMapping(path = "/delete")
     public ResponseEntity<WorkDto> delete(Integer id){return null;}
