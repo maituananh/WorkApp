@@ -8,13 +8,6 @@ public interface WorkService {
 
     ResponseEntity <WorkDto> update(WorkDto t);
 
-    ResponseEntity <Object> delete(Integer id);
+    ResponseEntity <WorkDto> delete(Integer id);
 
-    ResponseEntity <Object> deleteAndFlush(Integer id);
-
-    ResponseEntity <Object> findUser(WorkDto dto);
-
-    ResponseEntity <Object> findAllUser();
-
-    ResponseEntity <Object> find(Integer id);
 }

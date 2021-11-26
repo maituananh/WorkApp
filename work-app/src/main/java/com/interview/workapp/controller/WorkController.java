@@ -23,8 +23,6 @@ public class WorkController {
     public ResponseEntity<WorkDto> update(@RequestBody WorkDto dto){return workService.update(dto);}
 
     @DeleteMapping(path = "/delete")
-    public ResponseEntity<WorkDto> delete(Integer id){return null;}
+    public ResponseEntity<WorkDto> delete(@RequestParam Integer id){return workService.delete(id);}
 
-    @DeleteMapping(path = "/delete-flush")
-    public ResponseEntity<WorkDto> deleteAndFlush(Integer id){return null;}
 }

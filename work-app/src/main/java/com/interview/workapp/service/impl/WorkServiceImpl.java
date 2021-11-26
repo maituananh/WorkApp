@@ -12,9 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
-import java.util.Optional;
-
 /**
  * The type Work service.
  */
@@ -59,28 +56,19 @@ public class WorkServiceImpl implements WorkService {
     }
 
     @Override
-    public ResponseEntity<Object> delete(Integer id) {
-        return null;
-    }
+    public ResponseEntity<WorkDto> delete(Integer id) {
+        if (id != null && id != 0) {
+            boolean findWork = workRepository.existsById(id);
 
-    @Override
-    public ResponseEntity<Object> deleteAndFlush(Integer id) {
-        return null;
-    }
+            if (findWork) {
+                workRepository.deleteById(id);
 
-    @Override
-    public ResponseEntity<Object> findUser(WorkDto dto) {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<Object> findAllUser() {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<Object> find(Integer id) {
-        return null;
+                return new ResponseEntity<WorkDto>(new WorkDto(), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<WorkDto>(new WorkDto(), HttpStatus.NOT_FOUND);
+            }
+        }
+        return new ResponseEntity<WorkDto>(new WorkDto(), HttpStatus.BAD_REQUEST);
     }
 
     private boolean validation(WorkDto dto) {
