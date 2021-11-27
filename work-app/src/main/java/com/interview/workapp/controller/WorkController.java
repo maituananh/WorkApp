@@ -63,7 +63,7 @@ public class WorkController {
      * @return the response entity
      */
     @GetMapping(path = "/fetch")
-    public ResponseEntity<List<WorkDto>> delete(@RequestParam(defaultValue = "id") String sort,
+    public ResponseEntity<List<WorkDto>> fetch(@RequestParam(defaultValue = "id") String sort,
                                                 @RequestParam Integer page, @RequestParam Integer size) {
         return workService.fetchWithCondition(sort, page, size);
     }

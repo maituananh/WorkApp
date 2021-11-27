@@ -42,7 +42,7 @@ public class WorkServiceImpl implements WorkService {
 
     @Override
     public ResponseEntity<WorkDto> save(WorkDto dto) {
-        if (this.validation(dto)) {
+        if (dto != null && this.validation(dto)) {
             WorkEntity workEntity = modelMapper.map(dto, WorkEntity.class);
             workRepository.save(workEntity);
             return new ResponseEntity<WorkDto>(dto, HttpStatus.CREATED);
@@ -92,11 +92,15 @@ public class WorkServiceImpl implements WorkService {
             Pageable paging = PageRequest.of(page, size, Sort.by(sort));
             Page<WorkEntity> pagedResult = workRepository.findAll(paging);
 
-            List<WorkDto> dto = pagedResult.getContent().stream()
-                    .map(entity->modelMapper.map(entity, WorkDto.class))
-                    .collect(Collectors.toList());
+            if (pagedResult.getContent().size() > 0) {
+                List<WorkDto> dto = pagedResult.getContent().stream()
+                        .map(entity->modelMapper.map(entity, WorkDto.class))
+                        .collect(Collectors.toList());
 
-            return new ResponseEntity<List<WorkDto>>(dto, HttpStatus.OK);
+                return new ResponseEntity<List<WorkDto>>(dto, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<List<WorkDto>>(new ArrayList<>(), HttpStatus.NOT_FOUND);
+            }
         }
         return new ResponseEntity<List<WorkDto>>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
     }
