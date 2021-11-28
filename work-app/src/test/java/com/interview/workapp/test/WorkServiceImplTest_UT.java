@@ -27,6 +27,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * The type Work service impl test ut.
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class WorkServiceImplTest_UT {
 
@@ -44,6 +47,9 @@ public class WorkServiceImplTest_UT {
     private final Integer page = 0;
     private final Integer size = 4;
 
+    /**
+     * Sets up.
+     */
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
@@ -56,7 +62,11 @@ public class WorkServiceImplTest_UT {
         workDto.setEndingDate(now);
         workDto.setStartingDate(now);
     }
-    //    =========== START SAVE API ==========
+
+    /**
+     * Create work when work dto is correct return created.
+     */
+//    =========== START SAVE API ==========
     @Test
     public void createWork_WhenWorkDtoIsCorrect_ReturnCreated() {
         ResponseEntity<WorkDto> response = workService.save(workDto);
@@ -64,6 +74,9 @@ public class WorkServiceImplTest_UT {
         Assert.assertEquals(workDto, response.getBody());
     }
 
+    /**
+     * Create work when work name null return bad request.
+     */
     @Test
     public void createWork_WhenWorkNameNull_ReturnBadRequest() {
         workDto.setWorkName(null);
@@ -73,7 +86,10 @@ public class WorkServiceImplTest_UT {
     }
     //    =========== END SAVE API ==========
 
-    //    =========== START UPDATE API ==========
+    /**
+     * Update work when work dto is correct return ok.
+     */
+//    =========== START UPDATE API ==========
     @Test
     public void updateWork_WhenWorkDtoIsCorrect_ReturnOK() {
         Mockito.when(workRepository.existsById(1)).thenReturn(true);
@@ -82,6 +98,9 @@ public class WorkServiceImplTest_UT {
         Assert.assertEquals(workDto, response.getBody());
     }
 
+    /**
+     * Update work when work name null return bad request.
+     */
     @Test
     public void updateWork_WhenWorkNameNull_ReturnBadRequest() {
         workDto.setId(null);
@@ -91,7 +110,10 @@ public class WorkServiceImplTest_UT {
     }
     //    =========== END UPDATE API ==========
 
-    //    =========== START DELETE API ==========
+    /**
+     * Delete work when work id is correct return ok.
+     */
+//    =========== START DELETE API ==========
     @Test
     public void deleteWork_WhenWorkIdIsCorrect_ReturnOK() {
         Mockito.when(workRepository.existsById(1)).thenReturn(true);
@@ -100,6 +122,9 @@ public class WorkServiceImplTest_UT {
         Assert.assertEquals(response.getBody(), new WorkDto());
     }
 
+    /**
+     * Delete work when work id not found return not found.
+     */
     @Test
     public void deleteWork_WhenWorkIdNotFound_ReturnNotFound() {
         Mockito.when(workRepository.existsById(1)).thenReturn(false);
@@ -109,7 +134,10 @@ public class WorkServiceImplTest_UT {
     }
     //    =========== END DELETE API ==========
 
-    //    =========== START FETCH API ==========
+    /**
+     * Fetch work when is correct return ok.
+     */
+//    =========== START FETCH API ==========
     @Test
     public void fetchWork_WhenIsCorrect_ReturnOK() {
         List<WorkEntity> workEntities = dataTest();
@@ -124,6 +152,9 @@ public class WorkServiceImplTest_UT {
                 .collect(Collectors.toList()));
     }
 
+    /**
+     * Fetch work when sort name is none return bad request.
+     */
     @Test
     public void fetchWork_WhenSortNameIsNone_ReturnBadRequest() {
         this.sort = "None";
@@ -132,6 +163,9 @@ public class WorkServiceImplTest_UT {
         Assert.assertEquals(response.getBody(), new ArrayList<>());
     }
 
+    /**
+     * Fetch work when not found record return not found.
+     */
     @Test
     public void fetchWork_WhenNotFoundRecord_ReturnNotFound() {
         Page<WorkEntity> pagedResult = new PageImpl<WorkEntity>(new ArrayList<>(0));
