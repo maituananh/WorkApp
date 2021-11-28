@@ -4,54 +4,50 @@ import com.interview.workapp.common.WorkStatus;
 import com.interview.workapp.dto.WorkDto;
 import com.interview.workapp.entity.WorkEntity;
 import com.interview.workapp.repository.WorkRepository;
-import com.interview.workapp.service.WorkService;
+import com.interview.workapp.service.impl.WorkServiceImpl;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.mockito.Mockito.doAnswer;
-
-@RunWith(SpringRunner.class)
-@SpringBootTest
+@RunWith(MockitoJUnitRunner.class)
 public class WorkServiceImplTest_UT {
 
-    @MockBean
+    @Mock
     private WorkRepository workRepository;
 
-    private WorkDto workDto;
-
-    private WorkEntity workEntity;
-
-    @Autowired
-    private WorkService workService;
-
-    @Autowired
+    @Mock
     private ModelMapper modelMapper;
 
+    @InjectMocks
+    private WorkServiceImpl workService;
+
+    private WorkDto workDto;
     private String sort = "id";
     private final Integer page = 0;
     private final Integer size = 4;
 
     @Before
     public void setUp() {
+        MockitoAnnotations.initMocks(this);
+
         LocalDateTime now = LocalDateTime.now();
         workDto = new WorkDto();
         workDto.setId(1);
@@ -59,13 +55,10 @@ public class WorkServiceImplTest_UT {
         workDto.setStatus("DOING");
         workDto.setEndingDate(now);
         workDto.setStartingDate(now);
-
-        workEntity = modelMapper.map(workDto, WorkEntity.class);
     }
     //    =========== START SAVE API ==========
     @Test
     public void createWork_WhenWorkDtoIsCorrect_ReturnCreated() {
-        Mockito.when(workRepository.save(workEntity)).thenReturn(workEntity);
         ResponseEntity<WorkDto> response = workService.save(workDto);
         Assert.assertEquals(HttpStatus.CREATED.value(), response.getStatusCodeValue());
         Assert.assertEquals(workDto, response.getBody());
@@ -84,7 +77,6 @@ public class WorkServiceImplTest_UT {
     @Test
     public void updateWork_WhenWorkDtoIsCorrect_ReturnOK() {
         Mockito.when(workRepository.existsById(1)).thenReturn(true);
-        Mockito.when(workRepository.save(workEntity)).thenReturn(workEntity);
         ResponseEntity<WorkDto> response = workService.update(workDto);
         Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCodeValue());
         Assert.assertEquals(workDto, response.getBody());
@@ -103,7 +95,6 @@ public class WorkServiceImplTest_UT {
     @Test
     public void deleteWork_WhenWorkIdIsCorrect_ReturnOK() {
         Mockito.when(workRepository.existsById(1)).thenReturn(true);
-        doAnswer(invocation -> null).when(workRepository).deleteById(1);
         ResponseEntity<WorkDto> response = workService.delete(1);
         Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCodeValue());
         Assert.assertEquals(response.getBody(), new WorkDto());
@@ -136,7 +127,6 @@ public class WorkServiceImplTest_UT {
     @Test
     public void fetchWork_WhenSortNameIsNone_ReturnBadRequest() {
         this.sort = "None";
-        Mockito.when(workRepository.existsById(1)).thenReturn(false);
         ResponseEntity<List<WorkDto>> response = workService.fetchWithCondition(sort, page, size);
         Assert.assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatusCodeValue());
         Assert.assertEquals(response.getBody(), new ArrayList<>());
