@@ -28,7 +28,7 @@ stages {
 
     stage('Docker log') {
         steps {
-            sh 'docker logs -f --until=2s work-app_backend_1'
+            sh 'docker logs work-app_backend_1 --details'
         }
     }
   }
