@@ -6,7 +6,7 @@ stages {
     stage('Checkout code') {
         steps {
             checkout scm
-            filePermissions("Dockerfile": "rw", "docker-compose.yaml": "rw")
+            sh 'chmod a+rw Dockerfile docker-compose.yaml'
         }
     }
 
