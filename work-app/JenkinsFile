@@ -3,21 +3,12 @@ pipeline {
 agent any
 
 stages {
-    stage('Checkout code') {
-        steps {
-            checkout scm
-            sh 'chmod a+rw /WorkApp/work-app/Dockerfile /WorkApp/docker-compose.yaml'
-        }
-    }
-
     stage("verify tooling") {
       steps {
         sh '''
           docker version
           docker info
           docker-compose version
-          curl --version
-          jq --version
         '''
       }
     }
