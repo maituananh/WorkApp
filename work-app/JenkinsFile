@@ -2,15 +2,25 @@ pipeline {
 agent any
 
 stages {
-    stage('Clone') {
+    stage('Setup') {
         steps {
-           git branch: 'develop', url: 'https://github.com/maituananh/WorkApp.git'
+           echo '----------------- Setup ----------'
+           sh 'git config --global --add safe.directory '*'',
+           sh 'apt-get update',
+           sh 'apt-get install sudo'
         }
     }
 
     stage('Docker test') {
         steps {
             sh 'docker --version'
+        }
+    }
+
+    stage('Clone') {
+        steps {
+           echo '----------------- Clone source ----------'
+           git branch: 'develop', url: 'https://github.com/maituananh/WorkApp.git',
         }
     }
 
