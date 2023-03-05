@@ -2,11 +2,6 @@ pipeline {
 agent any
 
 stages {
-    stage('Setup') {
-        steps {
-           sh 'git config --global --add safe.directory '*''
-        }
-    }
 
     stage('Clone') {
         steps {
