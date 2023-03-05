@@ -1,0 +1,17 @@
+pipeline {
+agent any
+
+stages {
+    stage('Clone') {
+        steps {
+           git branch: 'develop', url: 'https://github.com/maituananh/WorkApp.git'
+        }
+    }
+    stage('Docker compose build') {
+        steps {
+            echo '----------------- This is a docker-compose phase ----------'
+            sh 'docker-compose up -d --force-recreate --remove-orphans --build'
+        }
+    }
+  }
+}
