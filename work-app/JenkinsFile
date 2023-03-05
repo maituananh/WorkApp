@@ -6,8 +6,7 @@ stages {
         steps {
            echo '----------------- Setup ----------'
            sh 'git config --global --add safe.directory '*'',
-           sh 'apt-get update',
-           sh 'apt-get install sudo'
+           sh 'apt-get update && apt-get install sudo'
         }
     }
 
