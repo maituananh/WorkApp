@@ -2,12 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('Setup') {
-            steps {
-               echo '----------------- Setup ----------'
-               sh 'git config --global --add safe.directory "*"'
-            }
-        }
+
 
         stage('Docker test') {
             steps {
