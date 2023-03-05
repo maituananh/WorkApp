@@ -1,8 +1,15 @@
 pipeline {
 
-agent { docker { image 'docker:latest' } }
+agent any
 
 stages {
+    stage('Checkout code') {
+        steps {
+            checkout scm
+            filePermissions("Dockerfile": "rw", "docker-compose.yaml": "rw")
+        }
+    }
+
     stage("verify tooling") {
       steps {
         sh '''
@@ -12,12 +19,6 @@ stages {
           curl --version
           jq --version
         '''
-      }
-    }
-
-    stage('Prune Docker data') {
-      steps {
-        sh 'docker system prune -a --volumes -f'
       }
     }
 
