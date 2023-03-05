@@ -25,5 +25,11 @@ stages {
             sh 'docker-compose up -d --force-recreate --remove-orphans --build'
         }
     }
+
+    stage('Docker log') {
+        steps {
+            sh 'docker logs -f --until=2s work-app_backend_1'
+        }
+    }
   }
 }
