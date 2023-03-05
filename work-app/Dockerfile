@@ -14,5 +14,5 @@ RUN mvn -e -B clean package -DskipTests -Dmaven.javadoc.skip=true
 
 FROM openjdk:8
 COPY --from=maven /app/target/*.jar app.jar
-EXPOSE 8080
+EXPOSE 8081
 ENTRYPOINT ["java", "-jar","/app.jar"]

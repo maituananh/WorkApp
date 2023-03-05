@@ -19,12 +19,6 @@ stages {
         }
     }
 
-    stage('Docker test') {
-        steps {
-            sh 'docker --version'
-        }
-    }
-
     stage('Docker compose build') {
         steps {
             echo '----------------- This is a docker-compose phase ----------'
