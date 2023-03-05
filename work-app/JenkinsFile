@@ -6,7 +6,7 @@ stages {
     stage('Checkout code') {
         steps {
             checkout scm
-            sh 'chmod a+rw /work-app/Dockerfile docker-compose.yaml'
+            sh 'chmod a+rw /WorkApp/work-app/Dockerfile /WorkApp/docker-compose.yaml'
         }
     }
 
