@@ -1,19 +1,8 @@
 pipeline {
 
-agent {
-    docker {
-        image 'hashicorp/terraform:light'
-        args '-it --entrypoint=/bin/bash'
-        label 'support_ubuntu_docker'
-    }
-}
+agent any
 
 stages {
-    stage('Test') {
-        steps {
-            sh 'terraform --version'
-        }
-    }
     stage('Clone') {
         steps {
            git branch: 'develop', url: 'https://github.com/maituananh/WorkApp.git'
