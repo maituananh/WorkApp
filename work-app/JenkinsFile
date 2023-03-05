@@ -7,6 +7,13 @@ stages {
            git branch: 'develop', url: 'https://github.com/maituananh/WorkApp.git'
         }
     }
+
+    stage('Docker test') {
+        steps {
+            sh 'docker --version'
+        }
+    }
+
     stage('Docker compose build') {
         steps {
             echo '----------------- This is a docker-compose phase ----------'
