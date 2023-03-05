@@ -1,33 +1,32 @@
 pipeline {
-agent any
+    agent any
 
-stages {
-    stage('Setup') {
-        steps {
-           echo '----------------- Setup ----------'
-           sh 'git config --global --add safe.directory '*'',
-           sh 'apt-get update && apt-get install sudo'
+    stages {
+        stage('Setup') {
+            steps {
+               echo '----------------- Setup ----------'
+               sh 'git config --global --add safe.directory "*"'
+            }
+        }
+
+        stage('Docker test') {
+            steps {
+                sh 'docker --version'
+            }
+        }
+
+        stage('Clone') {
+            steps {
+               echo '----------------- Clone source ----------'
+               git branch: 'develop', url: 'https://github.com/maituananh/WorkApp.git',
+            }
+        }
+
+        stage('Docker compose build') {
+            steps {
+                echo '----------------- This is a docker-compose phase ----------'
+                sh 'docker-compose up -d --force-recreate --remove-orphans --build'
+            }
         }
     }
-
-    stage('Docker test') {
-        steps {
-            sh 'docker --version'
-        }
-    }
-
-    stage('Clone') {
-        steps {
-           echo '----------------- Clone source ----------'
-           git branch: 'develop', url: 'https://github.com/maituananh/WorkApp.git',
-        }
-    }
-
-    stage('Docker compose build') {
-        steps {
-            echo '----------------- This is a docker-compose phase ----------'
-            sh 'docker-compose up -d --force-recreate --remove-orphans --build'
-        }
-    }
-  }
 }
