@@ -1,27 +1,24 @@
 pipeline {
-    agent any
+agent any
 
-    stages {
-
-
-        stage('Docker test') {
-            steps {
-                sh 'docker --version'
-            }
-        }
-
-        stage('Clone') {
-            steps {
-               echo '----------------- Clone source ----------'
-               git branch: 'develop', url: 'https://github.com/maituananh/WorkApp.git',
-            }
-        }
-
-        stage('Docker compose build') {
-            steps {
-                echo '----------------- This is a docker-compose phase ----------'
-                sh 'docker-compose up -d --force-recreate --remove-orphans --build'
-            }
+stages {
+    stage('Clone') {
+        steps {
+           git branch: 'develop', url: 'https://github.com/maituananh/WorkApp.git'
         }
     }
+
+    stage('Docker test') {
+        steps {
+            sh 'docker --version'
+        }
+    }
+
+    stage('Docker compose build') {
+        steps {
+            echo '----------------- This is a docker-compose phase ----------'
+            sh 'docker-compose up -d --force-recreate --remove-orphans --build'
+        }
+    }
+  }
 }
